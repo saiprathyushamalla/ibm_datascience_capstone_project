@@ -71,17 +71,17 @@ def success_pie_chart(entered_site):
         fig = px.pie(filtered_df, values='class', 
         names='Launch Site', 
         title='Total Success Launches by Site')
-        # print('All sites are considered')
+        
         return fig
     else:
         # return the outcomes piechart for a selected site
-        # fig = px.pie(filtered_df[filtered_df['Launch Site'] == entered_site], values='class', 
+        
         filtered_df = filtered_df[filtered_df['Launch Site'] == entered_site]
         filtered_df = filtered_df.groupby(['class'])['class'].count().reset_index(name='count')
         fig = px.pie(filtered_df, values='count', 
         names='class', 
         title=f'Total Success Launches for site {entered_site}')
-        # print(f'Only one site {entered_site} is considered')
+        
         return fig
 # TASK 4:
 # Add a callback function for `site-dropdown` and `payload-slider` as inputs, `success-payload-scatter-chart` as output
@@ -91,19 +91,14 @@ def success_pie_chart(entered_site):
 
 def success_payload_scatter_chart(entered_site, payload_mass):
     filtered_df = spacex_df[(payload_mass[0] < spacex_df['Payload Mass (kg)']) & (spacex_df['Payload Mass (kg)']<= payload_mass[1]) ]
-    # print(filtered_df.head(10))
-    # print(payload_mass
+    
     if entered_site == 'ALL':
         fig = px.scatter(filtered_df, x='Payload Mass (kg)', y='class', color='Booster Version Category'
         )
         return fig
     else:
-        print("Entered the right site loop")
         # return the outcomes piechart for a selected site
-        # fig = px.pie(data[data['Launch Site'] == entered_site], values='class', 
         filtered_df  = filtered_df[(filtered_df['Launch Site'] == entered_site)]
-        print(filtered_df.head(10))
-        print("We are here")
         fig = px.scatter(filtered_df, x='Payload Mass (kg)', y='class', 
         color='Booster Version Category' 
         )
